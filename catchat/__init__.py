@@ -13,7 +13,7 @@ from flask_wtf.csrf import CSRFError
 
 from catchat.blueprints.auth import auth_bp
 from catchat.blueprints.chat import chat_bp
-from catchat.extensions import db, login_manager, csrf, moment
+from catchat.extensions import db, login_manager, csrf, socketio, moment
 from catchat.models import User, Message
 from catchat.settings import config
 
@@ -37,6 +37,7 @@ def register_extensions(app):
     db.init_app(app)
     login_manager.init_app(app)
     csrf.init_app(app)
+    socketio.init_app(app)
     moment.init_app(app)
 
 

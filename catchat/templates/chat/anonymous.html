@@ -1,26 +1,41 @@
 {% extends 'base.html' %}
-{% block title %}CatChat{% endblock %}
+
+{% block page_title %}Incognito{% endblock %}
+
+{% block nav %}
+    <div class="ui top fixed borderless menu">
+        <a class="item catchat" href="{{ url_for('chat.home') }}" title="Go Back">
+            <img src="{{ url_for('static', filename='logo.png') }}">
+            <span>CatChat (Incognito Mode)</span>
+        </a>
+        <div class="right menu hide-on-mobile">
+            {% if not current_user.is_authenticated %}
+                <div class="item">
+                    <a class="ui primary button" href="{{ url_for('auth.login') }}">
+                        Sign in</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
 
 {% block content %}
     <div class="pusher">
         <div class="chat-box">
-            <div class="messages">
-                {% include 'chat/_messages.html' %}
-            </div>
+            <div class="messages"></div>
         </div>
         <div class="input-area">
             <div class="ui grid form">
                 <div class="ten wide column">
                     <div class="field fluid message-box">
                         {% if current_user.is_authenticated %}
-                            <img class="pop-card input-avatar" data-position="bottom left"
-                                 data-href="{{ url_for('chat.get_profile', user_id=current_user.id) }}"
-                                 src="{{ current_user.gravatar }}">
+                            <img class="input-avatar" src="https://www.gravatar.com/avatar?d=mm">
                             <textarea rows="2" id="message-textarea"
                                       placeholder="Write your message here... Enter to send"></textarea>
                         {% else %}
                             <div class="ui floating message">Please <a href="{{ url_for('auth.login') }}">Sign in</a> or
-                                <a href="{{ url_for('auth.register') }}">Sign up</a> to send message.
+                                <a
+                                        href="{{ url_for('auth.register') }}">Sign up</a> to send message.
                             </div>
                         {% endif %}
                     </div>
@@ -38,6 +53,6 @@
 {% block scripts %}
     {{ super() }}
     <script type="text/javascript">
-        var socket = io('/');
+        var socket = io('/anonymous');
     </script>
 {% endblock %}

@@ -11,6 +11,10 @@
 <body>
 
 <div class="ui labeled icon right vertical inverted demo menu sidebar">
+    <a class="item" href="{{ url_for('chat.anonymous') }}">
+        <i class="user secret icon"></i>
+        Incognito Mode
+    </a>
     <a class="item" href="http://helloflask.com" target="_blank">
         <i class="home icon"></i>
         HelloFlask.com
@@ -74,6 +78,7 @@
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='semantic-ui/semantic.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/forms.js') }}"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
