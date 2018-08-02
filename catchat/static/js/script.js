@@ -16,6 +16,37 @@ $(document).ready(function () {
         $messages.scrollTop($messages[0].scrollHeight);
     }
 
+    var page = 1;
+
+    function load_messages() {
+        var $messages = $('.messages');
+        var position = $messages.scrollTop();
+        if (position === 0 && socket.nsp !== '/anonymous') {
+            page++;
+            $('.ui.loader').toggleClass('active');
+            $.ajax({
+                url: messages_url,
+                type: 'GET',
+                data: {page: page},
+                success: function (data) {
+                    var before_height = $messages[0].scrollHeight;
+                    $(data).prependTo(".messages").hide().fadeIn(800);
+                    var after_height = $messages[0].scrollHeight;
+                    flask_moment_render_all();
+                    $messages.scrollTop(after_height - before_height);
+                    $('.ui.loader').toggleClass('active');
+                    activateSemantics();
+                },
+                error: function () {
+                    alert('No more messages.');
+                    $('.ui.loader').toggleClass('active');
+                }
+            });
+        }
+    }
+
+    $('.messages').scroll(load_messages);
+
     socket.on('user count', function (data) {
         $('#user-count').html(data.count);
     });

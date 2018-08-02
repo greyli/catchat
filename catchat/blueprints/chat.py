@@ -5,7 +5,7 @@
     :copyright: © 2018 Grey Li <withlihui@gmail.com>
     :license: MIT, see LICENSE for more details.
 """
-from flask import render_template, redirect, url_for, Blueprint
+from flask import render_template, redirect, url_for, request, Blueprint, current_app
 from flask_login import current_user, login_required
 from flask_socketio import emit
 
@@ -59,7 +59,8 @@ def disconnect():
 
 @chat_bp.route('/')
 def home():
-    messages = Message.query.order_by(Message.timestamp.asc())
+    amount = current_app.config['CATCHAT_MESSAGE_PER_PAGE']
+    messages = Message.query.order_by(Message.timestamp.asc())[-amount:]
     user_amount = User.query.count()
     return render_template('chat/home.html', messages=messages, user_amount=user_amount)
 
@@ -67,6 +68,15 @@ def home():
 @chat_bp.route('/anonymous')
 def anonymous():
     return render_template('chat/anonymous.html')
+
+
+@chat_bp.route('/messages')
+def get_messages():
+    page = request.args.get('page', 1, type=int)
+    pagination = Message.query.order_by(Message.timestamp.desc()).paginate(
+        page, per_page=current_app.config['CATCHAT_MESSAGE_PER_PAGE'])
+    messages = pagination.items
+    return render_template('chat/_messages.html', messages=messages[::-1])
 
 
 @chat_bp.route('/profile', methods=['GET', 'POST'])
