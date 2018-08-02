@@ -29,6 +29,10 @@
             Profile
         </a>
     {% endif %}
+    <a class="item" id="show-help-modal">
+        <i class="help icon"></i>
+        Help
+    </a>
     {% if current_user.is_authenticated %}
         <a class="item" href="{{ url_for('auth.logout') }}">
             <i class="power off icon"></i>
@@ -60,6 +64,75 @@
         </div>
     </div>
 {% endblock %}
+
+<!-- Help Modal -->
+<div class="ui modal small help">
+    <div class="header">Markdown Help</div>
+    <div class="content">
+        <section class="modal--default__content" id="modal-body-region">
+            <div>
+                <div class="modal-content">
+                    <table class="ui celled striped table">
+                        <tbody>
+                        <tr>
+                            <td><strong>Bold</strong></td>
+                            <td>**bold**</td>
+                        </tr>
+                        <tr>
+                            <td><i>Italics</i></td>
+                            <td>*italics*</td>
+                        </tr>
+                        <tr>
+                            <td>Header</td>
+                            <td># H1 ## H2 ### H3</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <li>item</li>
+                            </td>
+                            <td>* item</td>
+                        </tr>
+                        <tr>
+                            <td>Blockquote</td>
+                            <td>&gt; blockquote</td>
+                        </tr>
+                        <tr>
+                            <td><a href="http://greyli.com" target="_blank">Link</a></td>
+                            <td>[title](http://...)</td>
+                        </tr>
+                        <tr>
+                            <td>Image</td>
+                            <td>![alt](http://...)</td>
+                        </tr>
+                        <tr>
+                            <td><code>code</code></td>
+                            <td>`code`</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">hello</span><span
+                                        class="p">():</span>
+    <span class="k">return</span> <span class="s2">"Hello World"</span>
+</pre>
+                                </div>
+                            </td>
+                            <td style="line-height: 100%">```python <i style="color: rgba(0,0,0,0.5)">(shift+enter for
+                                line
+                                break)</i><br>def hello():<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;return "Hello World"<br>```
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+            </div>
+        </section>
+    </div>
+    <div class="actions">
+        <button class="ui button cancel">Close</button>
+    </div>
+</div>
 
 <!-- Mobile message Modal -->
 <div id="mobile-new-message-modal" class="ui modal small">
