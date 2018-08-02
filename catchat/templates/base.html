@@ -52,7 +52,11 @@
             </div>
         </div>
         <div class="right menu hide-on-mobile">
-            {% if not current_user.is_authenticated %}
+            {% if current_user.is_authenticated %}
+                <div class="item">
+                    <button class="ui button orange basic" id="show-snippet-modal">Create Snippets</button>
+                </div>
+            {% else %}
                 <div class="item">
                     <a class="ui primary button" href="{{ url_for('auth.login') }}">
                         Sign in</a>
@@ -131,6 +135,20 @@
     </div>
     <div class="actions">
         <button class="ui button cancel">Close</button>
+    </div>
+</div>
+
+<!-- Snippet Modal -->
+<div class="ui modal small snippet">
+    <div class="header">Create code or text snippets</div>
+    <div class="content">
+        <div class="ui form">
+            <textarea id="snippet-textarea" rows="20"></textarea>
+        </div>
+    </div>
+    <div class="actions">
+        <button class="ui button cancel">Cancel</button>
+        <button class="ui button blue approve" id="snippet-button">Create</button>
     </div>
 </div>
 

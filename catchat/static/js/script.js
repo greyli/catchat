@@ -71,6 +71,16 @@ $(document).ready(function () {
     // submit message
     $('#message-textarea').on('keydown', new_message.bind(this));
 
+    // submit snippet
+    $('#snippet-button').on('click', function () {
+        var $snippet_textarea = $('#snippet-textarea');
+        var message = $snippet_textarea.val();
+        if (message.trim() !== '') {
+            socket.emit('new message', message);
+            $snippet_textarea.val('')
+        }
+    });
+
     // open message modal on mobile
     $("#message-textarea").focus(function () {
         if (screen.width < 600) {
@@ -102,6 +112,10 @@ $(document).ready(function () {
 
         $('#show-help-modal').on('click', function () {
             $('.ui.modal.help').modal({blurring: true}).modal('show');
+        });
+
+        $('#show-snippet-modal').on('click', function () {
+            $('.ui.modal.snippet').modal({blurring: true}).modal('show');
         });
 
         $('.pop-card').popup({
