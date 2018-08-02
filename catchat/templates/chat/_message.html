@@ -1,0 +1,12 @@
+<div class="msg-box">
+    <div class="picture">
+        <img class="pop-card" data-position="right center" data-offset="-40"
+             data-href="{{ url_for('chat.get_profile', user_id=message.author.id) }}"
+             src="{{ message.author.gravatar }}">
+    </div>
+    <div class="msg">
+        <span class="nickname">{{ message.author.nickname }}</span>
+        <small class="timestamp">{{ moment(message.timestamp).format('lll') }}</small>
+        <span class="message-body">{{ message.body|safe }}</span>
+    </div>
+</div>

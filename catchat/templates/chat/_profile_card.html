@@ -1,0 +1,17 @@
+<div class="ui items profile-card">
+    <div class="item">
+        <div class="ui tiny image">
+            <img src="{{ user.gravatar }}">
+        </div>
+        <div class="content">
+            <div class="header">{{ user.nickname }}</div>
+            <div class="description">{{ user.bio or 'This user want to maintain an aura of mystique.' }}</div>
+        </div>
+    </div>
+    {% if user.github %}
+        <i class="github icon"></i><a href="{{ user.github }}" target="_blank">Github</a>
+    {% endif %}
+    {% if user.website %}
+        <i class="linkify icon"></i><a href="{{ user.website }}" target="_blank">Website</a>
+    {% endif %}
+</div>

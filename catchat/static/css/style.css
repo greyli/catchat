@@ -1,0 +1,167 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .hide-on-mobile {
+        visibility: hidden;
+        clear: both;
+        float: left;
+        margin: 10px auto 5px 20px;
+        width: 28%;
+        display: none;
+    }
+}
+
+.catchat {
+    margin-left: 20px;
+}
+
+.catchat span {
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #f26202;
+}
+
+.catchat-text {
+    font-weight: bold;
+    font-size: 18px;
+    color: #f26202;
+}
+
+.chat-box {
+    height: 100%;
+    color: #a1a1a1;
+    margin: 0;
+    padding: 59px 0 90px;
+}
+
+.chat-box .msg-box {
+    padding: 12px 0 10px;
+    clear: both;
+}
+
+.timestamp {
+    padding: 0 3px;
+}
+
+#message-textarea {
+    margin-left: 70px;
+}
+
+.msg-box .picture {
+    float: left;
+    width: 50px;
+    display: block;
+    padding-right: 15px;
+    margin-right: 10px;
+}
+
+.profile-card {
+    max-width: 220px;
+}
+
+.picture img {
+    width: 45px;
+    height: 45px;
+    border-radius: 5px;
+}
+
+.msg {
+    background: #ECECEC;
+    display: inline-block;
+    padding: 12px;
+    width: auto;
+    max-width: 80%;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    position: relative;
+    overflow-x: auto;
+}
+
+.msg img {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+}
+
+.msg:before {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 0;
+    border-right: 6px solid #ECECEC;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    top: 10px;
+    margin-left: -6px;
+}
+
+.nickname {
+    color: #555;
+    font-weight: bold;
+}
+
+.message-body {
+    display: block;
+    padding-top: 5px;
+    font-size: 14px;
+    color: #222;
+}
+
+.input-avatar {
+    position: absolute;
+    float: left;
+    max-height: 60px;
+    max-width: 60px;
+}
+
+.input-area {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 95px;
+    width: 100%;
+    background: #f6f6f6;
+    color: #a1a1a1;
+    padding: 10px;
+}
+
+.input-area textarea {
+    resize: none !important;
+}
+
+/* msgs */
+
+.chatArea {
+    height: 100%;
+    padding-bottom: 60px;
+}
+
+.messages {
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+    padding: 10px 20px 10px 20px;
+}
+
+body > .grid {
+    height: 100%;
+}
+
+.column {
+    max-width: 450px;
+}
+
+.signup-btn {
+    position: fixed;
+    top: 20px;
+    right: 40px;
+}
+
+.pull-left {
+    text-align: left;
+}

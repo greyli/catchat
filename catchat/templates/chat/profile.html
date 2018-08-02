@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+{% block nav %}{% endblock %}
+
+{% block content %}
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <div class="ui attached message">
+                <div class="header ui image ">
+                    <img src="{{ url_for('static', filename='logo.png') }}" class="image">
+                    <div class="content">Tell us about you!</div>
+                </div>
+            </div>
+            <form class="profile ui form attached left aligned fluid segment" method="post"
+                  action="{{ url_for('chat.profile') }}">
+                <div class="field eight wide">
+                    <label>Nickname</label>
+                    <input name="nickname" placeholder="Nickname" type="text" value="{{ current_user.nickname }}">
+                </div>
+                <div class="field">
+                    <label>Github</label>
+                    <input name="github" placeholder="https://github.com/greyli" type="text"
+                           value="{{ current_user.github or '' }}">
+                </div>
+                <div class="field">
+                    <label>Website</label>
+                    <input name="website" placeholder="http://greyli.com" type="text"
+                           value="{{ current_user.website or '' }}">
+                </div>
+                <div class="field">
+                    <label>Bio</label>
+                    <input name="bio" placeholder="I'm a ..." type="text" value="{{ current_user.bio or '' }}">
+                </div>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="fields two">
+                    <div class="ui orange submit fluid button">Start Chat</div>
+                </div>
+            </form>
+            {% for error_message in get_flashed_messages() %}
+                <div class="ui message floating warning closeable">
+                    <i class="close icon"></i>
+                    <div>{{ error_message }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

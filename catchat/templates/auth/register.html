@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Sign Up{% endblock %}
+{% block nav %}{% endblock %}
+
+{% block content %}
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <div class="ui attached message">
+                <div class="header ui image ">
+                    <img src="{{ url_for('static', filename='logo.png') }}" class="image">
+                    <div class="content">
+                        Welcome to <span class="catchat-text">CatChat</span>!
+                    </div>
+                </div>
+            </div>
+            <form class="register ui form attached left aligned fluid segment" method="post"
+                  action="{{ url_for('auth.register') }}">
+                <div class="field eight wide">
+                    <label>Nickname</label>
+                    <input name="nickname" placeholder="Nickname" type="text">
+                </div>
+                <div class="field">
+                    <label>Email</label>
+                    <input name="email" placeholder="greyli.py@gmail.com" type="text">
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <input name="password" placeholder="Password" type="password">
+                </div>
+                <div class="field">
+                    <label>Confirm Password</label>
+                    <input name="password2" placeholder="Password" type="password">
+                </div>
+                <div class="field">
+                    <div class="ui checkbox checked">
+                        <input tabindex="0" class="hidden" type="checkbox" checked="">
+                        <label>I agree to the Terms and Conditions</label>
+                    </div>
+                </div>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="ui orange submit button fluid">Join</div>
+                <div class="ui error message"></div>
+            </form>
+            {% if error %}
+                <div class="ui message floating warning closeable">
+                    <i class="close icon"></i>
+                    <div>{{ error }}</div>
+                </div>
+            {% endif %}
+            <div class="ui bottom attached warning message">
+                <i class="icon help"></i>
+                Already signed up? <a href="{{ url_for('auth.login') }}">Login here</a> instead.
+            </div>
+        </div>
+    </div>
+{% endblock %}

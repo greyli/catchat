@@ -1,0 +1,85 @@
+<html>
+<head>
+    {% block head %}
+        <title>{% block title %}{% block page_title %}{% endblock %} - CatChat{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="{{ url_for('static', filename='logo.png') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='semantic-ui/semantic.min.css') }}">
+    {% endblock %}
+</head>
+<body>
+
+<div class="ui labeled icon right vertical inverted demo menu sidebar">
+    <a class="item" href="http://helloflask.com" target="_blank">
+        <i class="home icon"></i>
+        HelloFlask.com
+    </a>
+    <a class="item" href="https://github.com/greyli/catchat" target="_blank">
+        <i class="github icon"></i>
+        GitHub
+    </a>
+    {% if current_user.is_authenticated %}
+        <a class="item" href="{{ url_for('chat.profile') }}">
+            <i class="setting icon"></i>
+            Profile
+        </a>
+    {% endif %}
+    {% if current_user.is_authenticated %}
+        <a class="item" href="{{ url_for('auth.logout') }}">
+            <i class="power off icon"></i>
+            Sign out</a>
+    {% endif %}
+</div>
+
+{% block nav %}
+    <div class="ui top fixed borderless menu">
+        <a class="item catchat" href="{{ url_for('chat.home') }}">
+            <img src="{{ url_for('static', filename='logo.png') }}">
+            <span>CatChat</span>
+        </a>
+        <div class="item">
+            <div class="ui label black basic" title="Online users">
+                <i class="user icon"></i> <span id="user-count">0</span> / {{ user_amount }}
+            </div>
+        </div>
+        <div class="right menu hide-on-mobile">
+            {% if not current_user.is_authenticated %}
+                <div class="item">
+                    <a class="ui primary button" href="{{ url_for('auth.login') }}">
+                        Sign in</a>
+                </div>
+            {% endif %}
+            <a class="item" id="toggle-sidebar">
+                <i class="sidebar icon"></i>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- Mobile message Modal -->
+<div id="mobile-new-message-modal" class="ui modal small">
+    <div class="content">
+        <div class="ui form">
+            <textarea id="mobile-message-textarea" rows="15"></textarea>
+        </div>
+    </div>
+    <div class="actions">
+        <button class="ui button cancel">Cancel</button>
+        <button class="ui button orange approve" id="send-button">Send</button>
+    </div>
+</div>
+
+{% block content %}{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='semantic-ui/semantic.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/forms.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
+    <script type="text/javascript">
+        var csrf_token = "{{ csrf_token() }}";
+    </script>
+{% endblock %}
+</body>
+</html>

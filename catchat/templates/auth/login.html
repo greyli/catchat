@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Sign In{% endblock %}
+{% block nav %}{% endblock %}
+
+{% block content %}
+    <a href="{{ url_for('auth.register') }}">
+        <div class="ui primary button signup-btn">Sign up</div>
+    </a>
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <h2 class="ui orange image header">
+                <img src="{{ url_for('static', filename='logo.png') }}" class="image">
+                <span class="content">Sign into CatChat</span>
+            </h2>
+            <form class="login ui large form" method="post" action="{{ url_for('auth.login') }}">
+                <div class="ui stacked segment">
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input id="email-input" name="email" placeholder="E-mail address" type="text">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input id="password-input" name="password" placeholder="Password" type="password">
+                        </div>
+                    </div>
+                    <div class="inline field pull-left">
+                        <div class="ui checked checkbox">
+                            <input id="remember" type="checkbox" name="remember" checked="">
+                            <label for="remember">Remember me</label>
+                        </div>
+                    </div>
+                    <div class="ui fluid large orange submit button">Login</div>
+                </div>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="ui error message"></div>
+            </form>
+            {% for error_message in get_flashed_messages() %}
+                <div class="ui message floating warning closeable">
+                    <i class="close icon"></i>
+                    <div>{{ error_message }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
