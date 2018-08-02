@@ -1,6 +1,7 @@
 $(document).ready(function () {
     // var socket = io.connect();
     var popupLoading = '<i class="notched circle loading icon green"></i> Loading...';
+    var message_count = 0;
     var ENTER_KEY = 13;
 
     $.ajaxSetup({
@@ -52,6 +53,13 @@ $(document).ready(function () {
     });
 
     socket.on('new message', function (data) {
+        message_count++;
+        if (!document.hasFocus()) {
+            document.title = '(' + message_count + ') ' + 'CatChat';
+        }
+        if (data.user_id !== current_user_id) {
+            messageNotify(data);
+        }
         $('.messages').append(data.message_html);
         flask_moment_render_all();
         scrollToBottom();
@@ -98,6 +106,24 @@ $(document).ready(function () {
         }
     });
 
+    function messageNotify(data) {
+        if (Notification.permission !== "granted")
+            Notification.requestPermission();
+        else {
+            var notification = new Notification("Message from " + data.nickname, {
+                icon: data.gravatar,
+                body: data.message_body.replace(/(<([^>]+)>)/ig, "")
+            });
+
+            notification.onclick = function () {
+                window.open(root_url);
+            };
+            setTimeout(function () {
+                notification.close()
+            }, 4000);
+        }
+    }
+
     function activateSemantics() {
         $('.ui.dropdown').dropdown();
         $('.ui.checkbox').checkbox();
@@ -142,6 +168,22 @@ $(document).ready(function () {
     }
 
     function init() {
+        // desktop notification
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!Notification) {
+                alert('Desktop notifications not available in your browser.');
+                return;
+            }
+
+            if (Notification.permission !== "granted")
+                Notification.requestPermission();
+        });
+
+        $(window).focus(function () {
+            message_count = 0;
+            document.title = 'CatChat';
+        });
+
         activateSemantics();
         scrollToBottom();
     }

@@ -26,7 +26,11 @@ def new_message(message_body):
     db.session.add(message)
     db.session.commit()
     emit('new message',
-         {'message_html': render_template('chat/_message.html', message=message)},
+         {'message_html': render_template('chat/_message.html', message=message),
+          'message_body': html_message,
+          'gravatar': current_user.gravatar,
+          'nickname': current_user.nickname,
+          'user_id': current_user.id},
          broadcast=True)
 
 
@@ -39,7 +43,11 @@ def new_anonymous_message(message_body):
          {'message_html': render_template('chat/_anonymous_message.html',
                                           message=html_message,
                                           avatar=avatar,
-                                          nickname=nickname)},
+                                          nickname=nickname),
+          'message_body': html_message,
+          'gravatar': avatar,
+          'nickname': nickname,
+          'user_id': current_user.id},
          broadcast=True, namespace='/anonymous')
 
 
