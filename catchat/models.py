@@ -8,10 +8,11 @@
 import hashlib
 from datetime import datetime
 
-from flask_login import UserMixin
+from flask import current_app
+from flask_login import UserMixin, AnonymousUserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from catchat.extensions import db
+from catchat.extensions import db, login_manager
 
 
 class User(UserMixin, db.Model):
@@ -41,8 +42,22 @@ class User(UserMixin, db.Model):
             self.email_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()  # encode for py23 compatible
 
     @property
+    def is_admin(self):
+        return self.email == current_app.config['CATCHAT_ADMIN_EMAIL']
+
+    @property
     def gravatar(self):
         return 'https://gravatar.com/avatar/%s?d=monsterid' % self.email_hash
+
+
+class Guest(AnonymousUserMixin):
+
+    @property
+    def is_admin(self):
+        return False
+
+
+login_manager.anonymous_user = Guest
 
 
 class Message(db.Model):

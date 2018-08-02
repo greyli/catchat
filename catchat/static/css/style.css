@@ -82,8 +82,19 @@ blockquote p {
     margin-right: 10px;
 }
 
+.ellipsis-icon {
+    position: absolute;
+    display: inline-block;
+    visibility: hidden;
+    vertical-align: top;
+}
+
 .profile-card {
     max-width: 220px;
+}
+
+.msg-box:hover > .ellipsis-icon {
+    visibility: visible;
 }
 
 .picture img {

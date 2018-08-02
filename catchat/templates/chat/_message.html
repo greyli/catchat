@@ -9,4 +9,19 @@
         <small class="timestamp">{{ moment(message.timestamp).format('lll') }}</small>
         <span class="message-body">{{ message.body|safe }}</span>
     </div>
+    {% if current_user.is_authenticated %}
+        <div class="ui icon left center pointing dropdown ellipsis-icon">
+            <i class="ellipsis horizontal icon"></i>
+            <div class="menu" data-offset="-33">
+                <div class="item quote-button"><i class="quote left icon"></i> Quote</div>
+                {% if current_user == message.author or current_user.is_admin %}
+                    <div class="item delete-button"
+                         data-href="{{ url_for('chat.delete_message', message_id=message.id) }}"
+                         onclick="confirm('Are you sure?')">
+                        <i class="delete icon"></i> Delete
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
 </div>

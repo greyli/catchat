@@ -4,7 +4,9 @@
             <img src="{{ user.gravatar }}">
         </div>
         <div class="content">
-            <div class="header">{{ user.nickname }}</div>
+            <div class="header">{{ user.nickname }}
+                {% if user.is_admin %}<span class="ui orange circular label">admin</span>{% endif %}
+            </div>
             <div class="description">{{ user.bio or 'This user want to maintain an aura of mystique.' }}</div>
         </div>
     </div>
@@ -13,5 +15,10 @@
     {% endif %}
     {% if user.website %}
         <i class="linkify icon"></i><a href="{{ user.website }}" target="_blank">Website</a>
+    {% endif %}
+    {% if current_user.is_admin and not user.is_admin %}
+        <i class="delete icon"></i>
+        <a class="delete-user-btn" href="#!" data-href="{{ url_for('admin.block_user', user_id=user.id) }}"
+           onclick="confirm('Are you sure?')">Delete</a>
     {% endif %}
 </div>

@@ -106,6 +106,15 @@ $(document).ready(function () {
         }
     });
 
+    // quote message
+    $('.quote-button').on('click', function () {
+        var $textarea = $('#message-textarea');
+        var message = $(this).parent().parent().parent().find('.message-body').text();
+        $textarea.val('> ' + message + '\n\n');
+        $textarea.val($textarea.val()).focus()
+    });
+
+
     function messageNotify(data) {
         if (Notification.permission !== "granted")
             Notification.requestPermission();
@@ -187,6 +196,36 @@ $(document).ready(function () {
         activateSemantics();
         scrollToBottom();
     }
+
+    // delete message
+    $('.delete-button').on('click', function () {
+        var $this = $(this);
+        $.ajax({
+            type: 'DELETE',
+            url: $this.data('href'),
+            success: function () {
+                $this.parent().parent().parent().remove();
+            },
+            error: function () {
+                alert('Oops, something was wrong!')
+            }
+        });
+    });
+
+    // delete user
+    $('.delete-user-button').on('click', function () {
+        var $this = $(this);
+        $.ajax({
+            type: 'DELETE',
+            url: $this.data('href'),
+            success: function () {
+                alert('Success, this user is gone!')
+            },
+            error: function () {
+                alert('Oops, something was wrong!')
+            }
+        });
+    });
 
     init();
 
