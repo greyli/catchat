@@ -29,9 +29,14 @@ def login():
 
         user = User.query.filter_by(email=email).first()
 
-        if user is not None and user.verify_password(password):
-            login_user(user, remember_me)
-            return redirect(url_for('chat.home'))
+        if user is not None:
+            if user.password_hash is None:
+                flash('Please use the third party service to log in.')
+                return redirect(url_for('.login'))
+
+            if user.verify_password(password):
+                login_user(user, remember_me)
+                return redirect(url_for('chat.home'))
         flash('Either the email or password was incorrect.')
         return redirect(url_for('.login'))
 

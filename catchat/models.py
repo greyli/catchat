@@ -16,6 +16,7 @@ from catchat.extensions import db
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    access_token = db.Column(db.String(128))
     email = db.Column(db.String(254), unique=True, nullable=False)
     nickname = db.Column(db.String(30))
     password_hash = db.Column(db.String(128))
