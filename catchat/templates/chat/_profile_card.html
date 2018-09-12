@@ -18,7 +18,7 @@
     {% endif %}
     {% if current_user.is_admin and not user.is_admin %}
         <i class="delete icon"></i>
-        <a class="delete-user-btn" href="#!" data-href="{{ url_for('admin.block_user', user_id=user.id) }}"
+        <a class="delete-user-button" href="#!" data-href="{{ url_for('admin.block_user', user_id=user.id) }}"
            onclick="confirm('Are you sure?')">Delete</a>
     {% endif %}
 </div>

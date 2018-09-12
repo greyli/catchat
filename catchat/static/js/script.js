@@ -213,7 +213,7 @@ $(document).ready(function () {
     });
 
     // delete user
-    $('.delete-user-button').on('click', function () {
+    $(document).on('click', '.delete-user-button', function () {
         var $this = $(this);
         $.ajax({
             type: 'DELETE',
