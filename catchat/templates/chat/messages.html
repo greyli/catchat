@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}View Messages{% endblock %}
+{% block nav %}{% endblock %}
+
+{% block content %}
+    <div class="messages">
+        <div class="ui text loader">Loading messages...</div>
+        {% include 'chat/_messages.html' %}
+    </div>
+{% endblock %}

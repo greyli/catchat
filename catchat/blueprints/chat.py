@@ -86,7 +86,7 @@ def get_messages():
     pagination = Message.query.order_by(Message.timestamp.desc()).paginate(
         page, per_page=current_app.config['CATCHAT_MESSAGE_PER_PAGE'])
     messages = pagination.items
-    return render_template('chat/_messages.html', messages=messages[::-1])
+    return render_template('chat/messages.html', messages=messages[::-1])
 
 
 @chat_bp.route('/profile', methods=['GET', 'POST'])
