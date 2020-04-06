@@ -17,7 +17,7 @@ idna==2.7
 itsdangerous==0.24
 jinja2==2.10
 markdown==2.6.11
-markupsafe==1.0
+markupsafe==1.1.1
 oauthlib==2.1.0
 pygments==2.2.0
 python-dotenv==0.10.0
