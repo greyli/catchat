@@ -107,7 +107,7 @@ $(document).ready(function () {
     });
 
     // quote message
-    $('.quote-button').on('click', function () {
+    $('.messages').on('click', '.quote-button', function () {
         var $textarea = $('#message-textarea');
         var message = $(this).parent().parent().parent().find('.message-body').text();
         $textarea.val('> ' + message + '\n\n');
@@ -198,7 +198,7 @@ $(document).ready(function () {
     }
 
     // delete message
-    $('.delete-button').on('click', function () {
+    $('.messages').on('click', '.delete-button', function () {
         var $this = $(this);
         $.ajax({
             type: 'DELETE',
