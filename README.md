@@ -1,5 +1,7 @@
 # CatChat
 
+# AWESOME
+
 *Chatroom for coders, not cats.*
 
 > Example application for *[Python Web Development with Flask](https://helloflask.com/en/book/1)* (《[Flask Web 开发实战](https://helloflask.com/book/1)》).
