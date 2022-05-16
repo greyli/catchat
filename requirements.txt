@@ -27,7 +27,7 @@ requests-oauthlib==1.0.0
 requests==2.19.1
 six==1.11.0
 sqlalchemy==1.2.10
-urllib3==1.23
+urllib3==1.26.5
 webencodings==0.5.1
 werkzeug==0.14.1
 wtforms==2.2.1
